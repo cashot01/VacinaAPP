@@ -6,20 +6,32 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { useFocusEffect, router } from "expo-router";
+import {
+  useFocusEffect,
+  router,
+} from "expo-router";
 
-import { useCallback, useState } from "react";
+import {
+  useCallback,
+  useState,
+  useContext,
+} from "react";
 
 import {
   buscarVacinas,
   deletarVacina,
-} from "../src/storage/vacinaStorage";
+} from "../../src/storage/vacinaStorage";
 
-import { Vacina } from "../src/types/Vacina";
+import { Vacina } from "../../src/types/Vacina";
+
+import { AuthContext } from "../../src/context/AuthContext";
 
 export default function Home() {
   const [vacinas, setVacinas] =
     useState<Vacina[]>([]);
+
+  const { logout } =
+    useContext(AuthContext);
 
   async function carregarVacinas() {
     const response =
@@ -45,11 +57,22 @@ export default function Home() {
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
-          router.push("/nova-vacina")
+          router.push(
+            "/(protected)/nova-vacina"
+          )
         }
       >
         <Text style={styles.buttonText}>
           Nova Vacina
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={logout}
+      >
+        <Text style={styles.buttonText}>
+          Logout
         </Text>
       </TouchableOpacity>
 
@@ -62,11 +85,11 @@ export default function Home() {
               {item.nomeVacina}
             </Text>
 
-            <Text>
+            <Text style={styles.text}>
               Dose: {item.dose}
             </Text>
 
-            <Text>
+            <Text style={styles.text}>
               Data: {item.data}
             </Text>
 
@@ -78,23 +101,34 @@ export default function Home() {
                 onPress={() =>
                   router.push({
                     pathname:
-                      "/editar-vacina",
+                      "/(protected)/editar-vacina",
+
                     params: item,
                   })
                 }
               >
-                <Text>
+                <Text
+                  style={
+                    styles.buttonText
+                  }
+                >
                   Editar
                 </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={styles.deleteButton}
+                style={
+                  styles.deleteButton
+                }
                 onPress={() =>
                   remover(item.id)
                 }
               >
-                <Text>
+                <Text
+                  style={
+                    styles.buttonText
+                  }
+                >
                   Excluir
                 </Text>
               </TouchableOpacity>
@@ -117,6 +151,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#00A86B",
     padding: 15,
     borderRadius: 10,
+    marginBottom: 10,
+  },
+
+  logoutButton: {
+    backgroundColor: "#DC2626",
+    padding: 15,
+    borderRadius: 10,
     marginBottom: 20,
   },
 
@@ -137,6 +178,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
+  },
+
+  text: {
+    color: "#fff",
   },
 
   actions: {

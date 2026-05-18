@@ -12,7 +12,7 @@ import { useState } from "react";
 
 import { router } from "expo-router";
 
-import { atualizarVacina } from "../src/storage/vacinaStorage";
+import { atualizarVacina } from "../../src/storage/vacinaStorage";
 
 export default function EditarVacina() {
   const params =

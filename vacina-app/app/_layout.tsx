@@ -1,17 +1,11 @@
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
+
+import { AuthProvider } from "../src/context/AuthContext";
 
 export default function Layout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: "#121212",
-        },
-        headerTintColor: "#fff",
-        contentStyle: {
-          backgroundColor: "#121212",
-        },
-      }}
-    />
+    <AuthProvider>
+      <Slot />
+    </AuthProvider>
   );
 }

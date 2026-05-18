@@ -13,7 +13,7 @@ import uuid from "react-native-uuid";
 
 import { router } from "expo-router";
 
-import { salvarVacina } from "../src/storage/vacinaStorage";
+import { salvarVacina } from "../../src/storage/vacinaStorage";
 
 export default function NovaVacina() {
   const [nomeVacina, setNomeVacina] =
