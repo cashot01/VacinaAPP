@@ -23,20 +23,57 @@ export default function Cadastro() {
   const [senha, setSenha] =
     useState("");
 
-  async function cadastrar() {
-    await cadastrarUsuario({
-      nome,
-      email,
-      senha,
-    });
+  const [endereco, setEndereco] =
+  useState("");
 
+  const [
+    dataNascimento,
+    setDataNascimento,
+  ] = useState("");
+
+  const [
+    unidadeSaude,
+    setUnidadeSaude,
+  ] = useState("");
+
+  async function cadastrar() {
+  if (
+    !nome ||
+    !email ||
+    !senha ||
+    !endereco ||
+    !dataNascimento ||
+    !unidadeSaude
+  ) {
     Alert.alert(
-      "Sucesso",
-      "Usuário criado"
+      "Erro",
+      "Preencha todos os campos"
     );
 
-    router.replace("/(auth)/login");
+    return;
   }
+
+  const usuario = {
+    nome: nome.trim(),
+    email: email.trim(),
+    senha: senha.trim(),
+
+    endereco: endereco.trim(),
+    dataNascimento:
+      dataNascimento.trim(),
+    unidadeSaude:
+      unidadeSaude.trim(),
+  };
+
+  await cadastrarUsuario(usuario);
+
+  Alert.alert(
+    "Sucesso",
+    "Usuário criado"
+  );
+
+  router.replace("/(auth)/login");
+}
 
   return (
     <View style={styles.container}>
@@ -67,6 +104,30 @@ export default function Cadastro() {
         style={styles.input}
         value={senha}
         onChangeText={setSenha}
+      />
+
+      <TextInput
+        placeholder="Endereço"
+        placeholderTextColor="#999"
+        style={styles.input}
+        value={endereco}
+        onChangeText={setEndereco}
+      />
+
+      <TextInput
+        placeholder="Data nascimento"
+        placeholderTextColor="#999"
+        style={styles.input}
+        value={dataNascimento}
+        onChangeText={setDataNascimento}
+      />
+
+      <TextInput
+        placeholder="Unidade de Saúde"
+        placeholderTextColor="#999"
+        style={styles.input}
+        value={unidadeSaude}
+        onChangeText={setUnidadeSaude}
       />
 
       <TouchableOpacity

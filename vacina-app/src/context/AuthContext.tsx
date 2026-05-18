@@ -14,8 +14,14 @@ import {
 
 type AuthContextProps = {
   usuario: any;
+
   login: (usuario: any) => void;
+
   logout: () => void;
+
+  atualizarUsuarioContext: (
+    usuario: any
+  ) => void;
 };
 
 export const AuthContext =
@@ -26,6 +32,12 @@ export function AuthProvider({
 }: any) {
   const [usuario, setUsuario] =
     useState(null);
+
+  function atualizarUsuarioContext(
+    usuarioAtualizado: any
+  ) {
+    setUsuario(usuarioAtualizado);
+  }
 
   async function carregarSessao() {
     const sessao =
@@ -68,6 +80,7 @@ export function AuthProvider({
         usuario,
         login,
         logout,
+        atualizarUsuarioContext,
       }}
     >
       {children}

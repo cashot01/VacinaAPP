@@ -68,6 +68,19 @@ export default function Home() {
       </TouchableOpacity>
 
       <TouchableOpacity
+        style={styles.editButton}
+        onPress={() =>
+          router.push(
+            "/(protected)/perfil"
+          )
+        }
+      >
+        <Text style={styles.buttonText}>
+          Perfil
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
         style={styles.logoutButton}
         onPress={logout}
       >

@@ -26,21 +26,33 @@ export default function Login() {
     useState("");
 
   async function entrar() {
-    const usuario =
+    const usuarioSalvo =
       await buscarUsuario();
 
-    if (!usuario) {
+    if (!usuarioSalvo) {
       Alert.alert(
         "Erro",
-        "Usuário não cadastrado"
+        "Nenhum usuário cadastrado"
       );
 
       return;
     }
 
+    const emailCorreto =
+      usuarioSalvo.email.trim();
+
+    const senhaCorreta =
+      usuarioSalvo.senha.trim();
+
+    const emailDigitado =
+      email.trim();
+
+    const senhaDigitada =
+      senha.trim();
+
     if (
-      usuario.email !== email ||
-      usuario.senha !== senha
+      emailDigitado !== emailCorreto ||
+      senhaDigitada !== senhaCorreta
     ) {
       Alert.alert(
         "Erro",
@@ -50,7 +62,7 @@ export default function Login() {
       return;
     }
 
-    login(usuario);
+    await login(usuarioSalvo);
   }
 
   return (
