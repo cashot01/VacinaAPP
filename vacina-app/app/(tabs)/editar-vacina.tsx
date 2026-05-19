@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Alert,
 } from "react-native";
 
 import {
@@ -51,18 +52,20 @@ export default function EditarVacina() {
   ] = useState(false);
 
   async function salvarEdicao() {
-    await atualizarVacina({
-      id: String(params.id),
+    if (
+      !nomeVacina.trim() ||
+      !unidade.trim() ||
+      !data.trim() ||
+      !dose.trim() ||
+      !braco.trim()
+    ) {
+      Alert.alert(
+        "Erro",
+        "Preencha todos os campos"
+      );
 
-      nomeVacina,
-      unidade,
-      data,
-      dose,
-      braco,
-    });
-
-    router.back();
-  }
+      return;
+    }
 
   return (
     <ScrollView
@@ -202,35 +205,36 @@ export default function EditarVacina() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: "#121212",
-    padding: 20,
-    gap: 15,
-  },
+    container: {
+      flexGrow: 1,
+      backgroundColor: "#121212",
+      padding: 20,
+      gap: 15,
+    },
 
-  input: {
-    backgroundColor: "#1E1E1E",
-    padding: 15,
-    borderRadius: 10,
-    color: "#fff",
-    justifyContent: "center",
-  },
+    input: {
+      backgroundColor: "#1E1E1E",
+      padding: 15,
+      borderRadius: 10,
+      color: "#fff",
+      justifyContent: "center",
+    },
 
-  pickerContainer: {
-    backgroundColor: "#1E1E1E",
-    borderRadius: 10,
-  },
+    pickerContainer: {
+      backgroundColor: "#1E1E1E",
+      borderRadius: 10,
+    },
 
-  button: {
-    backgroundColor: "#4F46E5",
-    padding: 15,
-    borderRadius: 10,
-  },
+    button: {
+      backgroundColor: "#4F46E5",
+      padding: 15,
+      borderRadius: 10,
+    },
 
-  buttonText: {
-    color: "#fff",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-});
+    buttonText: {
+      color: "#fff",
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+  });
+}

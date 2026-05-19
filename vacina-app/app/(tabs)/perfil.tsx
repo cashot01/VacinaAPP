@@ -59,14 +59,48 @@ export default function Perfil() {
   );
 
   async function salvarPerfil() {
+    if (
+      !nome.trim() ||
+      !email.trim() ||
+      !endereco.trim() ||
+      !dataNascimento.trim() ||
+      !unidadeSaude.trim()
+    ) {
+      Alert.alert(
+        "Erro",
+        "Preencha todos os campos"
+      );
+
+      return;
+    }
+
+    const emailValido =
+      /\S+@\S+\.\S+/;
+
+    if (!emailValido.test(email)) {
+      Alert.alert(
+        "Erro",
+        "Digite um email válido"
+      );
+
+      return;
+    }
+
     const usuarioAtualizado = {
       ...usuario,
 
-      nome,
-      email,
-      endereco,
-      dataNascimento,
-      unidadeSaude,
+      nome: nome.trim(),
+
+      email: email.trim(),
+
+      endereco:
+        endereco.trim(),
+
+      dataNascimento:
+        dataNascimento.trim(),
+
+      unidadeSaude:
+        unidadeSaude.trim(),
     };
 
     await atualizarUsuario(
@@ -126,49 +160,75 @@ export default function Perfil() {
         Meu Perfil
       </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Nome"
-        placeholderTextColor="#999"
-        value={nome}
-        onChangeText={setNome}
-      />
+      <View>
+        <Text style={styles.label}>
+          Nome
+        </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#999"
-        value={email}
-        onChangeText={setEmail}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu nome"
+          placeholderTextColor="#999"
+          value={nome}
+          onChangeText={setNome}
+        />
+      </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Endereço"
-        placeholderTextColor="#999"
-        value={endereco}
-        onChangeText={setEndereco}
-      />
+      <View>
+        <Text style={styles.label}>
+          Email
+        </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Data nascimento"
-        placeholderTextColor="#999"
-        value={dataNascimento}
-        onChangeText={
-          setDataNascimento
-        }
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu email"
+          placeholderTextColor="#999"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Unidade Saúde"
-        placeholderTextColor="#999"
-        value={unidadeSaude}
-        onChangeText={
-          setUnidadeSaude
-        }
-      />
+      <View>
+        <Text style={styles.label}>
+          Endereço
+        </Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu endereço"
+          placeholderTextColor="#999"
+          value={endereco}
+          onChangeText={setEndereco}
+        />
+      </View>
+
+      <View>
+        <Text style={styles.label}>
+          Data de Nascimento
+        </Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Digite sua data"
+          placeholderTextColor="#999"
+          value={dataNascimento}
+          onChangeText={setDataNascimento}
+        />
+      </View>
+
+      <View>
+        <Text style={styles.label}>
+          Unidade de Saúde
+        </Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Digite sua unidade"
+          placeholderTextColor="#999"
+          value={unidadeSaude}
+          onChangeText={setUnidadeSaude}
+        />
+      </View>
 
       <TouchableOpacity
         style={styles.button}
@@ -213,6 +273,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+
+  label: {
+    color: "#fff",
+    fontSize: 14,
+    marginBottom: 5,
+    fontWeight: "600",
   },
 
   input: {

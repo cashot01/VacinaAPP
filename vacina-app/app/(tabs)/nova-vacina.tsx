@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Alert,
 } from "react-native";
 
 import { useState } from "react";
@@ -39,16 +40,35 @@ export default function NovaVacina() {
     useState("");
 
   async function salvar() {
+    if (
+      !nomeVacina.trim() ||
+      !unidade.trim() ||
+      !data.trim() ||
+      !dose.trim() ||
+      !braco.trim()
+    ) {
+      Alert.alert(
+        "Erro",
+        "Preencha todos os campos"
+      );
+
+      return;
+    }
+
     const vacina = {
       id: String(uuid.v4()),
-      nomeVacina,
-      unidade,
-      data,
-      lote: "",
-      vacinador: "",
-      registroProfissional: "",
-      braco: "",
-      dose,
+
+      nomeVacina:
+        nomeVacina.trim(),
+
+      unidade:
+        unidade.trim(),
+
+      data: data.trim(),
+
+      dose: dose.trim(),
+
+      braco: braco.trim(),
     };
 
     await salvarVacina(vacina);
