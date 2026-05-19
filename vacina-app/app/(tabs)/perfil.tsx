@@ -22,10 +22,15 @@ import {
   excluirUsuario,
 } from "../../src/storage/authStorage";
 
+import {
+  FontAwesome
+} from "@expo/vector-icons";
+
 export default function Perfil() {
   const {
     usuario,
     atualizarUsuarioContext,
+    logout,
   } = useContext(AuthContext);
 
   const [nome, setNome] =
@@ -110,6 +115,13 @@ export default function Perfil() {
         styles.container
       }
     >
+      <View style={styles.avatarContainer}>
+        <FontAwesome
+          name="user-circle"
+          size={100}
+          color="#00A86B"
+        />
+      </View>
       <Text style={styles.title}>
         Meu Perfil
       </Text>
@@ -168,6 +180,15 @@ export default function Perfil() {
       </TouchableOpacity>
 
       <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={logout}
+      >
+        <Text style={styles.buttonText}>
+          Logout
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
         style={styles.deleteButton}
         onPress={excluirConta}
       >
@@ -219,4 +240,15 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
   },
+
+  avatarContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+
+  logoutButton: {
+    backgroundColor: "#F59E0B",
+    padding: 15,
+    borderRadius: 10,
+  }
 });

@@ -47,7 +47,7 @@ export function AuthProvider({
       setUsuario(sessao);
 
       router.replace(
-        "/(protected)"
+        "/(tabs)"
       );
     } else {
       router.replace("/(auth)/login");
@@ -63,7 +63,7 @@ export function AuthProvider({
 
     await salvarSessao(usuario);
 
-    router.replace("/(protected)");
+    router.replace("/(tabs)");
   }
 
   async function logout() {

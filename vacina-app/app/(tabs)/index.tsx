@@ -14,7 +14,6 @@ import {
 import {
   useCallback,
   useState,
-  useContext,
 } from "react";
 
 import {
@@ -24,14 +23,12 @@ import {
 
 import { Vacina } from "../../src/types/Vacina";
 
-import { AuthContext } from "../../src/context/AuthContext";
+
 
 export default function Home() {
   const [vacinas, setVacinas] =
     useState<Vacina[]>([]);
 
-  const { logout } =
-    useContext(AuthContext);
 
   async function carregarVacinas() {
     const response =
@@ -58,34 +55,12 @@ export default function Home() {
         style={styles.button}
         onPress={() =>
           router.push(
-            "/(protected)/nova-vacina"
+            "/(tabs)/nova-vacina"
           )
         }
       >
         <Text style={styles.buttonText}>
           Nova Vacina
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.editButton}
-        onPress={() =>
-          router.push(
-            "/(protected)/perfil"
-          )
-        }
-      >
-        <Text style={styles.buttonText}>
-          Perfil
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={logout}
-      >
-        <Text style={styles.buttonText}>
-          Logout
         </Text>
       </TouchableOpacity>
 
@@ -103,6 +78,10 @@ export default function Home() {
             </Text>
 
             <Text style={styles.text}>
+              Braço: {item.braco}
+            </Text>
+
+            <Text style={styles.text}>
               Data: {item.data}
             </Text>
 
@@ -114,7 +93,7 @@ export default function Home() {
                 onPress={() =>
                   router.push({
                     pathname:
-                      "/(protected)/editar-vacina",
+                      "/(tabs)/editar-vacina",
 
                     params: item,
                   })
@@ -165,13 +144,6 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
-  },
-
-  logoutButton: {
-    backgroundColor: "#DC2626",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 20,
   },
 
   buttonText: {
